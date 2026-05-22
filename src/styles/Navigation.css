@@ -1,0 +1,106 @@
+.navbar {
+  background: white;
+  border-bottom: 1px solid #dbdbdb;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo h1 {
+  margin: 0;
+  font-size: 24px;
+  background: linear-gradient(90deg, #405de6, #5b51d8, #833ab4, #c13584, #e1306c, #fd1d1d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.user-email {
+  font-size: 14px;
+  color: #262626;
+  font-weight: 500;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.menu-toggle {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.menu-toggle:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 150px;
+  margin-top: 5px;
+}
+
+.logout-button {
+  width: 100%;
+  padding: 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: #e74c3c;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.logout-button:hover {
+  background-color: #f9f9f9;
+}
+
+@media (max-width: 600px) {
+  .nav-container {
+    padding: 10px 15px;
+  }
+
+  .nav-logo h1 {
+    font-size: 18px;
+  }
+
+  .user-email {
+    max-width: 100px;
+    font-size: 12px;
+  }
+}

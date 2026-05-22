@@ -1,0 +1,138 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.auth-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.app-title {
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #405de6, #5b51d8, #833ab4, #c13584, #e1306c, #fd1d1d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 10px 0;
+}
+
+.app-subtitle {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
+
+.auth-form h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #262626;
+  font-size: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  background-color: #fafafa;
+}
+
+.input-field:hover {
+  border-color: #999;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #405de6;
+  box-shadow: 0 0 0 3px rgba(64, 93, 230, 0.1);
+  background-color: white;
+}
+
+.input-field:disabled {
+  background-color: #fafafa;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background-color: #ffe5e5;
+  color: #c13584;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(90deg, #405de6, #5b51d8, #833ab4, #c13584, #e1306c, #fd1d1d);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.submit-button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.auth-footer p {
+  margin: 0;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  color: #405de6;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.toggle-button:hover:not(:disabled) {
+  color: #5b51d8;
+}
+
+.toggle-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
