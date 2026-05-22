@@ -78,6 +78,19 @@
   color: #e1306c;
 }
 
+.delete-button {
+  color: #c62828;
+}
+
+.delete-button:hover:not(:disabled) {
+  color: #a61b1b;
+}
+
+.delete-button:disabled {
+  color: #d7a8a8;
+  cursor: not-allowed;
+}
+
 .like-button.liked {
   color: #e1306c;
 }

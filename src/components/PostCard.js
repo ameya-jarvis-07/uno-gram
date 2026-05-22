@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { db } from '../config/firebaseConfig';
 import { PostContext } from '../context/PostContext';
-import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, arrayRemove, deleteDoc } from 'firebase/firestore';
 import '../styles/PostCard.css';
 
 function PostCard({ post }) {
@@ -12,6 +12,9 @@ function PostCard({ post }) {
   const [submittingComment, setSubmittingComment] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [likeAnimationKey, setLikeAnimationKey] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+  const isOwner = currentUser?.uid === post.userId;
+  const mediaType = post.mediaType || 'image';
 
   const cardVariants = {
     initial: { opacity: 0, y: 20 },
@@ -80,6 +83,23 @@ function PostCard({ post }) {
     }
   };
 
+  const handleDeletePost = async () => {
+    if (!isOwner || deleting) return;
+
+    const confirmed = window.confirm('Delete this post? This cannot be undone.');
+    if (!confirmed) return;
+
+    setDeleting(true);
+    try {
+      await deleteDoc(doc(db, 'posts', post.id));
+      await fetchPosts();
+    } catch (error) {
+      console.error('Delete post error:', error);
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   const formatDate = (timestamp) => {
     if (!timestamp) return '';
     const date = new Date(timestamp.seconds * 1000);
@@ -119,7 +139,11 @@ function PostCard({ post }) {
         whileHover={{ scale: 1.02 }}
         transition={{ type: 'spring', stiffness: 300 }}
       >
-        <img src={post.imageUrl} alt="Post" className="post-image" />
+        {mediaType === 'video' ? (
+          <video src={post.imageUrl} className="post-image" controls playsInline />
+        ) : (
+          <img src={post.imageUrl} alt="Post" className="post-image" />
+        )}
         {likeAnimationKey > 0 && liked && (
           <motion.div
             key={likeAnimationKey}
@@ -157,6 +181,17 @@ function PostCard({ post }) {
         >
           💬 {post.comments?.length || 0}
         </motion.button>
+        {isOwner && (
+          <motion.button
+            className="action-button delete-button"
+            onClick={handleDeletePost}
+            disabled={deleting}
+            whileHover={{ scale: deleting ? 1 : 1.1 }}
+            whileTap={{ scale: deleting ? 1 : 0.9 }}
+          >
+            {deleting ? 'Deleting...' : '🗑 Delete'}
+          </motion.button>
+        )}
       </motion.div>
 
       <motion.div

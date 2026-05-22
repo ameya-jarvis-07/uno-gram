@@ -14,15 +14,19 @@ export const getOptimizedVideoUrl = (publicId) => {
   return `https://res.cloudinary.com/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/video/upload/c_scale,h_720,q_auto:best,vc_h264,b_2500k/${publicId}`;
 };
 
+const parseCloudinaryError = async (response, fallbackMessage) => {
+  try {
+    const errorData = await response.json();
+    return errorData?.error?.message || errorData?.message || fallbackMessage;
+  } catch {
+    return fallbackMessage;
+  }
+};
+
 export const uploadToCloudinary = async (file) => {
   const formData = new FormData();
   formData.append('file', file);
   formData.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
-  formData.append('cloud_name', process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
-  // Quality optimization during upload
-  formData.append('quality', 'auto');
-  // Format optimization for storage
-  formData.append('format', 'auto');
 
   try {
     const response = await fetch(
@@ -34,7 +38,7 @@ export const uploadToCloudinary = async (file) => {
     );
 
     if (!response.ok) {
-      throw new Error('Upload failed');
+      throw new Error(await parseCloudinaryError(response, 'Upload failed'));
     }
 
     const data = await response.json();
@@ -62,12 +66,6 @@ export const uploadVideoToCloudinary = async (file) => {
   const formData = new FormData();
   formData.append('file', file);
   formData.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
-  formData.append('cloud_name', process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
-  formData.append('resource_type', 'video');
-  // Video optimization parameters
-  formData.append('quality', 'auto');
-  formData.append('eager', 'h_720,q_auto:best,vc_h264,b_2500k/c_scale,h_720');
-  formData.append('eager_async', 'true');
 
   try {
     const response = await fetch(
@@ -79,7 +77,7 @@ export const uploadVideoToCloudinary = async (file) => {
     );
 
     if (!response.ok) {
-      throw new Error('Video upload failed');
+      throw new Error(await parseCloudinaryError(response, 'Video upload failed'));
     }
 
     const data = await response.json();
@@ -87,6 +85,7 @@ export const uploadVideoToCloudinary = async (file) => {
       success: true,
       url: getOptimizedVideoUrl(data.public_id),
       publicId: data.public_id,
+      mediaType: 'video',
       duration: data.duration,
       width: data.width,
       height: data.height,

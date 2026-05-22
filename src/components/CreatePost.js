@@ -12,9 +12,11 @@ function CreatePost() {
   const [posting, setPosting] = useState(false);
   const [message, setMessage] = useState('');
 
+  const mediaType = uploadedImage?.mediaType || 'image';
+
   const handleImageUploadSuccess = (result) => {
     setUploadedImage(result);
-    setMessage('Image uploaded successfully!');
+    setMessage(`${result.mediaType === 'video' ? 'Video' : 'Image'} uploaded successfully!`);
     setTimeout(() => setMessage(''), 3000);
   };
 
@@ -32,7 +34,7 @@ function CreatePost() {
     }
 
     if (!uploadedImage) {
-      setMessage('Please upload an image');
+      setMessage('Please upload a media file');
       return;
     }
 
@@ -51,6 +53,7 @@ function CreatePost() {
         caption: caption,
         imageUrl: uploadedImage.url,
         imagePublicId: uploadedImage.publicId,
+        mediaType: uploadedImage.mediaType || 'image',
         likes: [],
         comments: [],
         timestamp: serverTimestamp(),
@@ -87,7 +90,7 @@ function CreatePost() {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Select Image</label>
+            <label>Select Media</label>
             <ImageUpload
               onUploadSuccess={handleImageUploadSuccess}
               onError={handleImageUploadError}
@@ -96,7 +99,11 @@ function CreatePost() {
 
           {uploadedImage && (
             <div className="image-preview-section">
-              <img src={uploadedImage.url} alt="Post preview" className="post-preview" />
+              {mediaType === 'video' ? (
+                <video src={uploadedImage.url} className="post-preview" controls />
+              ) : (
+                <img src={uploadedImage.url} alt="Post preview" className="post-preview" />
+              )}
             </div>
           )}
 
@@ -116,7 +123,7 @@ function CreatePost() {
 
           <button
             type="submit"
-            disabled={posting || !uploadedImage || !caption.trim()}
+            disabled={posting}
             className="submit-button"
           >
             {posting ? 'Posting...' : 'Create Post'}
