@@ -2,7 +2,6 @@ import { useState, useContext } from 'react';
 import { db } from '../config/firebaseConfig';
 import { PostContext } from '../context/PostContext';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { uploadToCloudinary } from '../services/cloudinaryService';
 import ImageUpload from './ImageUpload';
 import '../styles/CreatePost.css';
 

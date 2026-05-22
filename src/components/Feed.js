@@ -6,7 +6,7 @@ import SkeletonLoader from './SkeletonLoader';
 import '../styles/Feed.css';
 
 function Feed() {
-  const { posts, currentUser, fetchPosts, loading } = useContext(PostContext);
+  const { posts, currentUser, fetchPosts } = useContext(PostContext);
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [pullDistance, setPullDistance] = useState(0);
