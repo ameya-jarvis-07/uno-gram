@@ -1,70 +1,106 @@
-# Getting Started with Create React App
+# Uno-Gram
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Uno-Gram is a small social image-sharing React app (Create React App) featuring user authentication, image uploads, and a simple feed. It's built with React, Firebase (auth + optional data), and Cloudinary for image hosting.
+
+## Features
+
+- User authentication (Firebase)
+- Create posts with image uploads (Cloudinary)
+- Feed with posts and profiles
+- Responsive UI components and skeleton loader
+
+## Tech Stack
+
+- React (Create React App)
+- Firebase (Authentication, optional Firestore)
+- Cloudinary (image uploads)
+- CSS modules / plain CSS in `src/styles`
+
+## Prerequisites
+
+- Node.js 16+ and npm
+- A Firebase project (for Authentication)
+- A Cloudinary account (for image hosting)
+
+## Quickstart
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Configure Firebase: open [src/config/firebaseConfig.js](src/config/firebaseConfig.js) and provide your project's config values (apiKey, authDomain, projectId, etc.).
+
+3. Configure Cloudinary: open [src/services/cloudinaryService.js](src/services/cloudinaryService.js) and set your `cloudName` and `uploadPreset` (or update the service to read from environment variables).
+
+4. Run the app in development:
+
+```bash
+npm start
+```
+
+The app runs at `http://localhost:3000` by default.
 
 ## Available Scripts
 
-In the project directory, you can run:
+- `npm start` — Runs the app in development mode.
+- `npm test` — Runs the test runner.
+- `npm run build` — Builds the app for production into the `build/` folder.
 
-### `npm start`
+## Project Structure (key files)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [src/index.js](src/index.js) — App entry
+- [src/App.js](src/App.js) — Root component and routes
+- [src/components](src/components) — React components (Auth, Feed, Profile, PostCard, ImageUpload, etc.)
+- [src/config/firebaseConfig.js](src/config/firebaseConfig.js) — Firebase configuration
+- [src/services/cloudinaryService.js](src/services/cloudinaryService.js) — Cloudinary upload helper
+- [src/context/PostContext.js](src/context/PostContext.js) — Global post state
+- [src/styles](src/styles) — Component CSS files
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Environment & Secrets
 
-### `npm test`
+This repo stores configuration in `src/config/firebaseConfig.js` and `src/services/cloudinaryService.js` by default. For production, prefer environment variables and a build-time solution. Example env vars you might use:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `REACT_APP_FIREBASE_API_KEY`
+- `REACT_APP_FIREBASE_AUTH_DOMAIN`
+- `REACT_APP_FIREBASE_PROJECT_ID`
+- `REACT_APP_CLOUDINARY_CLOUD_NAME`
+- `REACT_APP_CLOUDINARY_UPLOAD_PRESET`
 
-### `npm run build`
+Create a `.env.local` with those variables and update the config files to read from `process.env`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Deployment
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Build the optimized production bundle:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm run build
+```
 
-### `npm run eject`
+Then deploy the contents of the `build/` folder to your static host (Netlify, Vercel, Surge, Firebase Hosting, etc.).
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Contributing
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Feel free to open issues or pull requests. Suggested first steps:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Improve form validation and error handling
+- Add pagination or infinite scroll to the feed
+- Add server-side APIs if you want to protect Cloudinary credentials
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Notes
 
-## Learn More
+- See `CLOUDINARY_SETUP.md` and `COMPRESSION_STRATEGY.md` in the repo for related docs.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## License
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+MIT — see `package.json` for project metadata.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+If you'd like, I can also:
 
-### Analyzing the Bundle Size
+- Add environment variable support to the config files,
+- Generate a minimal `.env.example`, or
+- Create a short developer checklist for local testing.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
